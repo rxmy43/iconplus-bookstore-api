@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ramy.onlinebookstore.annotation.ResponseSuccessMessage;
 import com.ramy.onlinebookstore.constant.MediaType;
-import com.ramy.onlinebookstore.dto.request.LoginRequest;
-import com.ramy.onlinebookstore.dto.request.RegisterRequest;
-import com.ramy.onlinebookstore.dto.response.LoginResponse;
-import com.ramy.onlinebookstore.dto.response.RegisterResponse;
+import com.ramy.onlinebookstore.dto.request.auth.LoginRequest;
+import com.ramy.onlinebookstore.dto.request.auth.RegisterRequest;
+import com.ramy.onlinebookstore.dto.response.auth.LoginResponse;
+import com.ramy.onlinebookstore.dto.response.auth.RegisterResponse;
 import com.ramy.onlinebookstore.service.AuthService;
 
 import io.swagger.v3.oas.annotations.Operation;

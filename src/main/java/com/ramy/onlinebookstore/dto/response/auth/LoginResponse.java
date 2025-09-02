@@ -1,4 +1,4 @@
-package com.ramy.onlinebookstore.dto.response;
+package com.ramy.onlinebookstore.dto.response.auth;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

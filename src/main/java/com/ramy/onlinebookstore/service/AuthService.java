@@ -1,9 +1,9 @@
 package com.ramy.onlinebookstore.service;
 
-import com.ramy.onlinebookstore.dto.request.LoginRequest;
-import com.ramy.onlinebookstore.dto.request.RegisterRequest;
-import com.ramy.onlinebookstore.dto.response.LoginResponse;
-import com.ramy.onlinebookstore.dto.response.RegisterResponse;
+import com.ramy.onlinebookstore.dto.request.auth.LoginRequest;
+import com.ramy.onlinebookstore.dto.request.auth.RegisterRequest;
+import com.ramy.onlinebookstore.dto.response.auth.LoginResponse;
+import com.ramy.onlinebookstore.dto.response.auth.RegisterResponse;
 
 public interface AuthService {
     /**
