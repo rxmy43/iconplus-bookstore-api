@@ -19,25 +19,19 @@ public class PaginationUtil {
         return sortDir.equalsIgnoreCase("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending();
     }
 
-    public static class FilterResult {
-        public Map<String, Object> filters;
-        public int page;
-        public int size;
-        public String sortField;
-        public String sortDir;
-    }
-
     public static PaginationRequest parseQueryParams(Map<String, String> queryParams) {
         Map<String, Object> filters = new HashMap<>(queryParams);
         int page = Integer.parseInt(filters.getOrDefault("page", "0").toString());
         int size = Integer.parseInt(filters.getOrDefault("size", "10").toString());
         String sortField = filters.getOrDefault("sortField", "id").toString();
         String sortDir = filters.getOrDefault("sortDir", "asc").toString();
+        boolean deleted = Boolean.parseBoolean(filters.getOrDefault("deleted", "false").toString());
 
         filters.remove("page");
         filters.remove("size");
         filters.remove("sortField");
         filters.remove("sortDir");
+        filters.remove("deleted");
 
         Map<String, Object> finalFilters = new HashMap<>();
         filters.forEach((key, v) -> {
@@ -62,6 +56,7 @@ public class PaginationUtil {
                 .sortField(sortField)
                 .sortDir(sortDir)
                 .filters(finalFilters)
+                .deleted(deleted)
                 .build();
     }
 

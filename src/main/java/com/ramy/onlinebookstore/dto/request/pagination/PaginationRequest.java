@@ -32,4 +32,8 @@ public class PaginationRequest {
             "Supported operators: eq, ne, gt, lt, gte, lte, like, in, between. " +
             "For 'in' use a list of values, for 'between' use a list with 2 elements (range).", example = "{\"name__like\":\"book\",\"price__gte\":100,\"createdDate__between\":[\"2025-01-01\",\"2025-09-01\"]}")
     private Map<String, Object> filters;
+
+    @Schema(description = "Show soft-deleted records if true", example = "false")
+    @Builder.Default
+    private boolean deleted = false;
 }

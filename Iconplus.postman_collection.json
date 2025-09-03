@@ -1,0 +1,709 @@
+{
+	"info": {
+		"_postman_id": "517f9796-ff46-41a5-a07f-5ef56c78304b",
+		"name": "Iconplus",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44735076",
+		"_collection_link": "https://my-tech-test.postman.co/workspace/Team-Workspace~b99bf08c-a55f-4375-8f7f-e52bc3d56727/collection/44735076-517f9796-ff46-41a5-a07f-5ef56c78304b?action=share&source=collection_link&creator=44735076"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"User Biasa\",\r\n    \"email\": \"user@bookstore.com\",\r\n    \"password\": \"user1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"\r",
+									"if (typeof response.data === 'object' && response.data.token) {\r",
+									"    pm.environment.set(\"token\", response.data.token);\r",
+									"    console.log(\"Token has been stored!\");\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"johndoe@gmail.com\",\r\n    \"password\": \"password1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Fiction\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/categories?deleted=true",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"categories"
+							],
+							"query": [
+								{
+									"key": "name__like",
+									"value": "anton",
+									"disabled": true
+								},
+								{
+									"key": "deleted",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/categories/5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"categories",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Non-Fiction\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/categories/4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"categories",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/categories/5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"categories",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restore Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/categories/5/restore",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"categories",
+								"5",
+								"restore"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hard Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/categories/5/hard",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"categories",
+								"5",
+								"hard"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Book",
+			"item": [
+				{
+					"name": "Create Book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "The Diary of a Young Girl",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "Anne Frank",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "235000",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "1947",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "21",
+									"type": "text"
+								},
+								{
+									"key": "categoryId",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ACER/Pictures/Wallpaper/ken.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/books",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/books?title__like=diary&category.id__eq=4",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"books"
+							],
+							"query": [
+								{
+									"key": "author__like",
+									"value": "George",
+									"disabled": true
+								},
+								{
+									"key": "title__like",
+									"value": "diary"
+								},
+								{
+									"key": "category.id__eq",
+									"value": "4"
+								},
+								{
+									"key": "sortField",
+									"value": "createdAt",
+									"disabled": true
+								},
+								{
+									"key": "sortDir",
+									"value": "asc",
+									"disabled": true
+								},
+								{
+									"key": "deleted",
+									"value": "true",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Book",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "The Diary of a Young Girl",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "Anne Frank",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "235000",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "1947",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "21",
+									"type": "text"
+								},
+								{
+									"key": "categoryId",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ACER/Pictures/Wallpaper/bmw-430i-m-sport-pro-6dc2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/books/43",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"books",
+								"43"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Book",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "The Diary of a Young Girl",
+									"type": "text"
+								},
+								{
+									"key": "author",
+									"value": "Anne Frank",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "235000",
+									"type": "text"
+								},
+								{
+									"key": "year",
+									"value": "1947",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "21",
+									"type": "text"
+								},
+								{
+									"key": "categoryId",
+									"value": "4",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/ACER/Pictures/Wallpaper/bmw-430i-m-sport-pro-6dc2.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/books/43",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"books",
+								"43"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restore Book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/books/43/restore",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"books",
+								"43",
+								"restore"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Hard Remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/books/43/hard",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"books",
+								"43",
+								"hard"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderItems\": [\r\n        {\r\n            \"bookId\": 45,\r\n            \"quantity\": 5\r\n        },\r\n        {\r\n            \"bookId\": 44,\r\n            \"quantity\": 3\r\n        } \r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/orders/61/pay",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders",
+								"61",
+								"pay"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get One",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/orders/61",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders",
+								"61"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Report",
+			"item": [
+				{
+					"name": "Sales Report",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/reports/sales?startDate=2025-09-01&endDate=2025-09-30",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"reports",
+								"sales"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2025-09-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-09-30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Bestseller",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/reports/bestseller?startDate=2025-09-01&endDate=2025-09-30",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"reports",
+								"bestseller"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2025-09-01"
+								},
+								{
+									"key": "endDate",
+									"value": "2025-09-30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Price Statistics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/reports/prices",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"reports",
+								"prices"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

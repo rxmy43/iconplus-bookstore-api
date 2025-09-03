@@ -3,6 +3,7 @@ package com.ramy.onlinebookstore.interceptor;
 import java.util.Map;
 
 import org.springframework.core.MethodParameter;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -52,23 +53,37 @@ public class ApiResponseInterceptor implements ResponseBodyAdvice<Object> {
             return body;
         }
 
-        // Pesan sukses (boleh override pakai annotation)
+        // Response Success Message decorator
         String customMessage = "OK";
         ResponseSuccessMessage annotation = returnType.getMethodAnnotation(ResponseSuccessMessage.class);
         if (annotation != null) {
             customMessage = annotation.value();
         }
 
-        if (body instanceof Map<?, ?> mapBody
-                && mapBody.containsKey("data")
-                && mapBody.containsKey("meta")) {
+        String deletedParam = request.getURI().getQuery();
+        boolean deleted = false;
+        if (deletedParam != null && deletedParam.contains("deleted=true")) {
+            deleted = true;
+        }
 
-            Map<String, Object> meta = (Map<String, Object>) mapBody.get("meta");
+        if (body instanceof Page<?> page) {
+            Map<String, Object> meta = Map.of(
+                    "pageNumber", page.getNumber(),
+                    "pageSize", page.getSize(),
+                    "totalElements", page.getTotalElements(),
+                    "totalPages", page.getTotalPages(),
+                    "first", page.isFirst(),
+                    "last", page.isLast(),
+                    "numberOfElements", page.getNumberOfElements(),
+                    "sort", page.getSort(),
+                    "deleted", deleted
+            );
+
             return ApiResponse.builder()
                     .success(true)
-                    .message("OK".equals(customMessage) ? "Data fetched successfully" : customMessage)
+                    .message(customMessage)
                     .code(status)
-                    .data(mapBody.get("data"))
+                    .data(page.getContent())
                     .meta(meta)
                     .build();
         }

@@ -10,9 +10,9 @@ import lombok.Data;
 @Builder
 @Schema(description = "Category's response")
 public class CategoryResponse {
-    @Schema(description = "Category ID")
+    @Schema(description = "Category ID", example = "1")
     private Long id;
 
-    @Schema(description = "Category's name")
+    @Schema(description = "Category's name", example = "Action Comedy")
     private String name;
 }

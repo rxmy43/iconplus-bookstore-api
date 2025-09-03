@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
                 .success(false)
                 .message("Form validation error")
                 .code(HttpStatus.UNPROCESSABLE_ENTITY.value())
-                .details(details)
+                .fieldErrors(details)
                 .build();
 
         return new ResponseEntity<>(response, HttpStatus.UNPROCESSABLE_ENTITY);

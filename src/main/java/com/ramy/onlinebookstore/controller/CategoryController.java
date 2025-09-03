@@ -2,15 +2,11 @@ package com.ramy.onlinebookstore.controller;
 
 import java.util.Map;
 
+import com.ramy.onlinebookstore.dto.request.category.UpdateCategoryRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.ramy.onlinebookstore.annotation.ResponseSuccessMessage;
 import com.ramy.onlinebookstore.constant.MediaType;
@@ -24,7 +20,6 @@ import com.ramy.onlinebookstore.util.PaginationUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -53,4 +48,41 @@ public class CategoryController {
         PaginationRequest request = PaginationUtil.parseQueryParams(queryParams);
         return categoryService.getAll(request);
     }
+
+    @Operation(summary = "Get Category by ID", description = "Fetch one category by ID, only admin allowed")
+    @ApiResponse(responseCode = "200", description = "One category has been fetched!", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = CategoryResponse.class)))
+    @GetMapping("/{id}")
+    @ResponseSuccessMessage("One category has been fetched!")
+    public CategoryResponse getOne(@PathVariable Long id) {
+        return categoryService.getOne(id);
+    }
+
+    @Operation(summary = "Update Category", description = "Update a category by ID, only admin allowed")
+    @ApiResponse(responseCode = "200", description = "Category has been updated!", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = CategoryResponse.class)))
+    @PutMapping("/{id}")
+    @ResponseSuccessMessage("Category has been updated!")
+    public CategoryResponse update(@PathVariable Long id, @Valid @RequestBody UpdateCategoryRequest request) {
+        return categoryService.update(id, request);
+    }
+
+    @Operation(summary = "Remove Category", description = "Soft delete a category by ID, only admin allowed")
+    @ApiResponse(responseCode = "200", description = "Category has been removed!", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = CategoryResponse.class)))
+    @DeleteMapping("/{id}")
+    @ResponseSuccessMessage("Category has been removed!")
+    public CategoryResponse delete(@PathVariable Long id) {
+        return categoryService.remove(id);
+    }
+
+    @DeleteMapping("/{id}/hard")
+    @ResponseSuccessMessage("Category has been hard-removed!")
+    public CategoryResponse hardRemove(@PathVariable Long id) {
+        return categoryService.hardRemove(id);
+    }
+
+    @PostMapping("/{id}/restore")
+    @ResponseSuccessMessage("Category has been restored!")
+    public CategoryResponse restore(@PathVariable Long id) {
+        return categoryService.restore(id);
+    }
+
 }

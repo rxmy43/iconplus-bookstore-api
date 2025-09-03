@@ -1,5 +1,6 @@
 package com.ramy.onlinebookstore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ramy.onlinebookstore.entity.base.BaseEntity;
 import com.ramy.onlinebookstore.entity.enums.UserRole;
 
@@ -13,6 +14,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Where;
 
 @Entity()
 @Table(name = "users")
@@ -29,6 +31,7 @@ public class User extends BaseEntity {
     private String email;
 
     @Column(nullable = false, length = 255)
+    @JsonIgnore
     private String password;
 
     @Column(nullable = false)

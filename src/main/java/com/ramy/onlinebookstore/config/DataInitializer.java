@@ -28,8 +28,9 @@ public class DataInitializer implements CommandLineRunner {
                     .build();
 
             userRepo.save(admin);
-            System.out.println("Admin user created : admin@bookstore.com / admin123");
         }
+
+        System.out.println("Admin account (email / password) : admin@bookstore.com / admin123");
     }
 
 }

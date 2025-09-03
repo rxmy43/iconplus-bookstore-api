@@ -1,15 +1,16 @@
 package com.ramy.onlinebookstore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ramy.onlinebookstore.entity.base.BaseEntity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity()
 @Table(name = "categories")
@@ -21,4 +22,8 @@ import lombok.NoArgsConstructor;
 public class Category extends BaseEntity {
     @Column(nullable = false, length = 100)
     private String name;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Book> books;
 }

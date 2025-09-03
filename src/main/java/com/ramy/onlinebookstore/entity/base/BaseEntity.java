@@ -2,6 +2,7 @@ package com.ramy.onlinebookstore.entity.base;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -34,9 +35,14 @@ public abstract class BaseEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+    @JsonIgnore
     private LocalDateTime deletedAt;
 
     public void softDelete() {
         this.deletedAt = LocalDateTime.now();
+    }
+
+    public void restore() {
+        this.deletedAt = null;
     }
 }

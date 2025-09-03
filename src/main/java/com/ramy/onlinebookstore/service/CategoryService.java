@@ -1,5 +1,6 @@
 package com.ramy.onlinebookstore.service;
 
+import com.ramy.onlinebookstore.dto.request.category.UpdateCategoryRequest;
 import org.springframework.data.domain.Page;
 
 import com.ramy.onlinebookstore.dto.request.category.CreateCategoryRequest;
@@ -11,4 +12,14 @@ public interface CategoryService {
     CategoryResponse create(CreateCategoryRequest request);
 
     Page<Category> getAll(PaginationRequest request);
+
+    CategoryResponse getOne(Long id);
+
+    CategoryResponse update(Long id, UpdateCategoryRequest request);
+
+    CategoryResponse remove(Long id);
+
+    CategoryResponse hardRemove(Long id);
+
+    CategoryResponse restore(Long id);
 }
